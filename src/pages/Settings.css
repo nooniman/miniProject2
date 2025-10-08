@@ -50,7 +50,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .setting-item:last-child {
@@ -59,17 +60,20 @@
 
 .setting-item label {
   font-weight: 600;
-  color: #4a5568;
+  color: #2d3748;
   flex: 1;
+  min-width: 200px;
 }
 
 .setting-select,
 .setting-input {
   padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #cbd5e0;
   border-radius: 8px;
   font-size: 1rem;
   min-width: 200px;
+  background: white;
+  color: #2d3748;
   transition: border-color 0.3s ease;
 }
 
@@ -77,6 +81,13 @@
 .setting-input:focus {
   outline: none;
   border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .setting-checkbox {
@@ -86,10 +97,44 @@
   accent-color: #667eea;
 }
 
-.setting-info {
+.checkbox-label {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.theme-preview {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #f7fafc;
+  border-radius: 6px;
   color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.goal-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 6px;
+  border-left: 4px solid #667eea;
+}
+
+.goal-info p {
+  margin: 0.5rem 0;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.account-info {
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
+.account-info p {
+  color: #2d3748;
   line-height: 1.8;
-  margin: 0;
+  margin: 0.5rem 0;
 }
 
 .save-message {
@@ -119,29 +164,57 @@
   gap: 1rem;
   justify-content: center;
   margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
-.settings-info {
-  background: #f7fafc;
-  padding: 1.5rem;
+.settings-summary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
   border-radius: 12px;
-  border-left: 4px solid #667eea;
+  margin-top: 2rem;
 }
 
-.settings-info h3 {
+.settings-summary h3 {
   margin-top: 0;
-  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
-.settings-info p {
-  margin: 0.5rem 0;
-  color: #4a5568;
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.summary-item {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summary-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.summary-value {
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 @media (max-width: 768px) {
   .setting-item {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .setting-item label {
+    min-width: 100%;
   }
 
   .setting-select,
@@ -155,5 +228,27 @@
 
   .settings-actions .btn {
     width: 100%;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-container {
+    padding: 1.5rem;
+  }
+
+  .settings-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .settings-summary {
+    padding: 1.5rem;
+  }
+
+  .summary-item {
+    padding: 0.75rem;
   }
 }

@@ -195,7 +195,109 @@
   flex-wrap: wrap;
 }
 
+.results-info {
+  margin-bottom: 1.5rem;
+  color: #718096;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.add-log-form {
+  background: white;
+  border: 2px solid #667eea;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.add-log-form h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2d3748;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #2d3748;
+  background: white;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.delete-log-btn {
+  margin-top: 1rem;
+  width: 100%;
+  background: #e53e3e;
+  color: white;
+  border: 2px solid #e53e3e;
+}
+
+.delete-log-btn:hover {
+  background: #c53030;
+  border-color: #c53030;
+}
+
+.btn-danger {
+  background: #e53e3e;
+  color: white;
+  border: 2px solid #e53e3e;
+}
+
+.btn-danger:hover {
+  background: #c53030;
+  border-color: #c53030;
+}
+
 @media (max-width: 768px) {
+  .logs-header h1 {
+    font-size: 2rem;
+  }
+
+  .logs-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .day-buttons {
+    justify-content: center;
+  }
+
+  .day-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.6rem 1rem;
+  }
+
   .log-details-grid {
     grid-template-columns: 1fr;
   }
@@ -206,5 +308,58 @@
 
   .action-buttons .btn {
     width: 100%;
+  }
+
+  .summary-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .logs-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .logs-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .welcome-banner {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .day-filter h3 {
+    font-size: 1.1rem;
+  }
+
+  .day-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .log-card {
+    padding: 1.25rem;
+  }
+
+  .log-day-badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .logs-summary {
+    padding: 1.5rem;
+  }
+
+  .summary-stats {
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.75rem;
   }
 }

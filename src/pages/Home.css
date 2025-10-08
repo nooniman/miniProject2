@@ -77,12 +77,7 @@
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  border: 2px solid #e2e8f0;
 }
 
 .feature-icon {
@@ -146,11 +141,50 @@
     font-size: 2rem;
   }
 
+  .tagline {
+    font-size: 1rem;
+  }
+
   .cta-buttons {
     flex-direction: column;
+    width: 100%;
   }
 
   .btn {
     width: 100%;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .welcome-message {
+    font-size: 1.75rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
   }
 }

@@ -197,7 +197,44 @@
     width: 100%;
   }
 
+  .filter-buttons {
+    width: 100%;
+  }
+
+  .filter-btn {
+    flex: 1;
+    min-width: 80px;
+  }
+
   .workouts-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h2 {
+    font-size: 2rem;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+  }
+
+  .search-input {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .filter-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .workout-card {
+    padding: 1.25rem;
+  }
+
+  .workout-card h3 {
+    font-size: 1.2rem;
   }
 }

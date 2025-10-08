@@ -1,8 +1,9 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { workouts } from '../data/workouts';
+import { useWorkouts } from '../context/WorkoutContext';
 import './WorkoutList.css';
 
 export default function WorkoutList() {
+  const { workouts } = useWorkouts();
   const [searchParams, setSearchParams] = useSearchParams();
   
   // Get query parameters

@@ -1,11 +1,19 @@
 import { useParams, useSearchParams, Link, useLocation } from 'react-router-dom';
-import { workouts } from '../data/workouts';
+import { useState } from 'react';
+import { useWorkouts } from '../context/WorkoutContext';
 import './WorkoutLogs.css';
 
 export default function WorkoutLogs() {
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+  const { workouts, addLog, deleteLog } = useWorkouts();
+  
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newLog, setNewLog] = useState({
+    day: 'monday',
+    notes: ''
+  });
   
   const dayFilter = searchParams.get('day') || '';
   const workout = workouts.find(w => w.id === parseInt(id));
@@ -44,6 +52,28 @@ export default function WorkoutLogs() {
 
   // Check if we came from the detail page
   const fromDetail = location.state?.fromDetail;
+
+  // Handle adding a new log
+  const handleAddLog = (e) => {
+    e.preventDefault();
+    
+    if (newLog.notes.trim()) {
+      addLog(parseInt(id), {
+        ...newLog,
+        timestamp: new Date().toISOString()
+      });
+      
+      setNewLog({ day: 'monday', notes: '' });
+      setShowAddForm(false);
+    }
+  };
+
+  // Handle deleting a log
+  const handleDeleteLog = (logIndex) => {
+    if (confirm('Are you sure you want to delete this log?')) {
+      deleteLog(parseInt(id), logIndex);
+    }
+  };
 
   return (
     <div className="workout-logs-page">
@@ -89,7 +119,54 @@ export default function WorkoutLogs() {
           Showing {filteredLogs.length} log{filteredLogs.length !== 1 ? 's' : ''}
           {dayFilter && ` for ${dayFilter.charAt(0).toUpperCase() + dayFilter.slice(1)}`}
         </p>
+        <button 
+          onClick={() => setShowAddForm(!showAddForm)}
+          className="btn btn-primary"
+        >
+          {showAddForm ? '✖ Cancel' : '➕ Add New Log'}
+        </button>
       </div>
+
+      {/* Add Log Form */}
+      {showAddForm && (
+        <div className="add-log-form">
+          <h3>Add New Workout Log</h3>
+          <form onSubmit={handleAddLog}>
+            <div className="form-group">
+              <label htmlFor="day">Day</label>
+              <select
+                id="day"
+                value={newLog.day}
+                onChange={(e) => setNewLog({ ...newLog, day: e.target.value })}
+                className="form-input"
+              >
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="notes">Notes</label>
+              <textarea
+                id="notes"
+                value={newLog.notes}
+                onChange={(e) => setNewLog({ ...newLog, notes: e.target.value })}
+                className="form-input"
+                rows="3"
+                placeholder="Add workout notes, sets, reps, distance, time, etc."
+                required
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              💾 Save Log
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Logs Display */}
       <div className="logs-container">
@@ -115,6 +192,12 @@ export default function WorkoutLogs() {
                   );
                 })}
               </div>
+              <button
+                className="btn btn-danger delete-log-btn"
+                onClick={() => handleDeleteLog(index)}
+              >
+                Delete Log
+              </button>
             </div>
           ))
         ) : (

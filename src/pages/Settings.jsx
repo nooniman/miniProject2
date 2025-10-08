@@ -1,17 +1,64 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useWorkouts } from '../context/WorkoutContext';
 import './Settings.css';
 
-export default function Settings({ userTheme = 'light' }) {
-  const [theme, setTheme] = useState(userTheme);
+export default function Settings({ userTheme: initialTheme = 'light' }) {
+  const { workouts } = useWorkouts();
+  const [theme, setTheme] = useState(initialTheme);
   const [notifications, setNotifications] = useState(true);
   const [weeklyGoal, setWeeklyGoal] = useState(150);
   const [savedMessage, setSavedMessage] = useState('');
+  const [userName, setUserName] = useState('Fitness Enthusiast');
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Load settings from localStorage on mount
+  useEffect(() => {
+    const savedSettings = localStorage.getItem('fitnessTrackerSettings');
+    if (savedSettings) {
+      const settings = JSON.parse(savedSettings);
+      setTheme(settings.theme || initialTheme);
+      setNotifications(settings.notifications ?? true);
+      setWeeklyGoal(settings.weeklyGoal || 150);
+      setUserName(settings.userName || 'Fitness Enthusiast');
+    }
+  }, [initialTheme]);
+
+  // Apply theme to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   const handleSave = () => {
-    // In a real app, this would save to backend or localStorage
+    const settings = {
+      theme,
+      notifications,
+      weeklyGoal,
+      userName
+    };
+    
+    localStorage.setItem('fitnessTrackerSettings', JSON.stringify(settings));
+    
     setSavedMessage('✅ Settings saved successfully!');
-    setTimeout(() => setSavedMessage(''), 3000);
+    setIsEditing(false);
+    
+    setTimeout(() => {
+      setSavedMessage('');
+    }, 3000);
+  };
+
+  const handleReset = () => {
+    setTheme('light');
+    setNotifications(true);
+    setWeeklyGoal(150);
+    setUserName('Fitness Enthusiast');
+    
+    localStorage.removeItem('fitnessTrackerSettings');
+    
+    setSavedMessage('🔄 Settings reset to defaults!');
+    setTimeout(() => {
+      setSavedMessage('');
+    }, 3000);
   };
 
   return (
@@ -22,6 +69,21 @@ export default function Settings({ userTheme = 'light' }) {
       </div>
 
       <div className="settings-container">
+        <div className="settings-section">
+          <h2>Profile</h2>
+          <div className="setting-item">
+            <label htmlFor="userName">Your Name</label>
+            <input
+              type="text"
+              id="userName"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="setting-input"
+              placeholder="Enter your name"
+            />
+          </div>
+        </div>
+
         <div className="settings-section">
           <h2>Appearance</h2>
           <div className="setting-item">
@@ -37,6 +99,9 @@ export default function Settings({ userTheme = 'light' }) {
               <option value="auto">Auto</option>
             </select>
           </div>
+          <div className="theme-preview">
+            Current theme: <strong>{theme}</strong>
+          </div>
         </div>
 
         <div className="settings-section">
@@ -45,13 +110,18 @@ export default function Settings({ userTheme = 'light' }) {
             <label htmlFor="notifications">
               Enable Workout Reminders
             </label>
-            <input
-              type="checkbox"
-              id="notifications"
-              checked={notifications}
-              onChange={(e) => setNotifications(e.target.checked)}
-              className="setting-checkbox"
-            />
+            <div className="checkbox-wrapper">
+              <input
+                type="checkbox"
+                id="notifications"
+                checked={notifications}
+                onChange={(e) => setNotifications(e.target.checked)}
+                className="setting-checkbox"
+              />
+              <span className="checkbox-label">
+                {notifications ? 'Enabled' : 'Disabled'}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -65,21 +135,23 @@ export default function Settings({ userTheme = 'light' }) {
               type="number"
               id="weeklyGoal"
               value={weeklyGoal}
-              onChange={(e) => setWeeklyGoal(parseInt(e.target.value))}
+              onChange={(e) => setWeeklyGoal(parseInt(e.target.value) || 0)}
               min="30"
               max="500"
+              step="10"
               className="setting-input"
             />
           </div>
-        </div>
-
-        <div className="settings-section">
+          <div className="goal-info">
+            <p>Recommended: 150 minutes per week for adults</p>
+            <p>Your goal: <strong>{weeklyGoal} minutes/week</strong></p>
+          </div>
+        </div>        <div className="settings-section">
           <h2>Account</h2>
-          <div className="setting-item">
-            <p className="setting-info">
-              <strong>User:</strong> Fitness Enthusiast<br />
-              <strong>Member Since:</strong> January 2025
-            </p>
+          <div className="account-info">
+            <p><strong>User:</strong> {userName}</p>
+            <p><strong>Member Since:</strong> January 2025</p>
+            <p><strong>Total Workouts Available:</strong> {workouts.length}</p>
           </div>
         </div>
 
@@ -91,7 +163,10 @@ export default function Settings({ userTheme = 'light' }) {
 
         <div className="settings-actions">
           <button onClick={handleSave} className="btn btn-primary">
-            Save Settings
+            💾 Save Settings
+          </button>
+          <button onClick={handleReset} className="btn btn-outline">
+            🔄 Reset to Defaults
           </button>
           <Link to="/" className="btn btn-secondary">
             Cancel
@@ -99,10 +174,22 @@ export default function Settings({ userTheme = 'light' }) {
         </div>
       </div>
 
-      <div className="settings-info">
-        <h3>Current Theme: {theme}</h3>
-        <p>Weekly Goal: {weeklyGoal} minutes</p>
-        <p>Notifications: {notifications ? 'Enabled' : 'Disabled'}</p>
+      <div className="settings-summary">
+        <h3>Current Configuration</h3>
+        <div className="summary-grid">
+          <div className="summary-item">
+            <span className="summary-label">Theme:</span>
+            <span className="summary-value">{theme}</span>
+          </div>
+          <div className="summary-item">
+            <span className="summary-label">Notifications:</span>
+            <span className="summary-value">{notifications ? '✅ Enabled' : '❌ Disabled'}</span>
+          </div>
+          <div className="summary-item">
+            <span className="summary-label">Weekly Goal:</span>
+            <span className="summary-value">{weeklyGoal} min</span>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ code {
     monospace;
 }
 
-/* Common Button Styles */
+/* Common Button Styles - High Contrast */
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -35,10 +35,12 @@ code {
 .btn-primary {
   background: #667eea;
   color: white;
+  border: 2px solid #667eea;
 }
 
 .btn-primary:hover {
   background: #5568d3;
+  border-color: #5568d3;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
@@ -46,15 +48,17 @@ code {
 .btn-secondary {
   background: #718096;
   color: white;
+  border: 2px solid #718096;
 }
 
 .btn-secondary:hover {
   background: #4a5568;
+  border-color: #4a5568;
   transform: translateY(-2px);
 }
 
 .btn-outline {
-  background: transparent;
+  background: white;
   border: 2px solid #667eea;
   color: #667eea;
 }
@@ -62,5 +66,20 @@ code {
 .btn-outline:hover {
   background: #667eea;
   color: white;
+}
+
+/* Responsive button adjustments */
+@media (max-width: 768px) {
+  .btn {
+    padding: 0.7rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
 }
 

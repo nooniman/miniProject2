@@ -1,11 +1,12 @@
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
-import { workouts } from '../data/workouts';
+import { useWorkouts } from '../context/WorkoutContext';
 import './WorkoutDetail.css';
 
 export default function WorkoutDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { workouts } = useWorkouts();
   
   const workout = workouts.find(w => w.id === parseInt(id));
 

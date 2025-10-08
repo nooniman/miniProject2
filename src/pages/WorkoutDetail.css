@@ -201,11 +201,59 @@
     font-size: 2rem;
   }
 
+  .workout-description-large {
+    font-size: 1.1rem;
+  }
+
+  .workout-info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
   .workout-actions {
     flex-direction: column;
   }
 
   .btn-large {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .workout-detail-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .workout-description-large {
+    font-size: 1rem;
+  }
+
+  .workout-type-badge-large {
+    font-size: 0.85rem;
+    padding: 0.4rem 1.2rem;
+  }
+
+  .info-card {
+    padding: 1.25rem;
+  }
+
+  .info-card h4 {
+    font-size: 0.8rem;
+  }
+
+  .info-card p {
+    font-size: 1.1rem;
+  }
+
+  .btn-large {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .workout-tips {
+    padding: 1.5rem;
+  }
+
+  .workout-tips h3 {
+    font-size: 1.3rem;
   }
 }

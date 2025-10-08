@@ -1,7 +1,29 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useWorkouts } from '../context/WorkoutContext';
 import './Home.css';
 
 export default function Home({ welcomeMessage = "Welcome to Your Fitness Journey!" }) {
+  const { workouts } = useWorkouts();
+  const [stats, setStats] = useState({
+    totalWorkouts: 0,
+    totalCalories: 0,
+    totalMinutes: 0
+  });
+
+  useEffect(() => {
+    // Calculate real stats from workouts data
+    const totalWorkouts = workouts.length;
+    const totalCalories = workouts.reduce((sum, workout) => sum + workout.calories, 0);
+    const totalMinutes = workouts.reduce((sum, workout) => sum + workout.duration, 0);
+
+    setStats({
+      totalWorkouts,
+      totalCalories,
+      totalMinutes
+    });
+  }, [workouts]);
+
   return (
     <div className="home-page">
       <div className="hero-section">
@@ -43,16 +65,16 @@ export default function Home({ welcomeMessage = "Welcome to Your Fitness Journey
         <h3>Quick Stats</h3>
         <div className="stats-grid">
           <div className="stat-item">
-            <span className="stat-number">8</span>
+            <span className="stat-number">{stats.totalWorkouts}</span>
             <span className="stat-label">Total Workouts</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">2,290</span>
-            <span className="stat-label">Calories Burned</span>
+            <span className="stat-number">{stats.totalCalories.toLocaleString()}</span>
+            <span className="stat-label">Calories Available</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">365</span>
-            <span className="stat-label">Minutes Exercised</span>
+            <span className="stat-number">{stats.totalMinutes}</span>
+            <span className="stat-label">Minutes of Exercise</span>
           </div>
         </div>
       </div>
