@@ -1,0 +1,359 @@
+.all-logs-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.all-logs-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem 1rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.all-logs-header h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.all-logs-header p {
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.overview-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.overview-stat-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.overview-stat-card:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.overview-stat-icon {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+}
+
+.overview-stat-value {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--accent-color);
+  margin: 0;
+  line-height: 1;
+}
+
+.overview-stat-label {
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0.25rem 0 0 0;
+}
+
+.all-logs-filters {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: min(100%, 180px);
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.filter-input,
+.filter-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.clear-filters-btn {
+  align-self: flex-end;
+  white-space: nowrap;
+}
+
+.results-summary {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+.logs-by-workout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.workout-logs-group {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.workout-logs-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.workout-logs-group-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+.logs-count {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--bg-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.logs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.all-log-card {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.all-log-card:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.all-log-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.all-log-day-badge {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.all-log-type {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.all-log-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.all-log-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.all-log-detail-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.all-log-detail-value {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.all-log-meta {
+  display: flex;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--border-color);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.no-logs-found {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 2px dashed var(--border-color);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.no-logs-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.no-logs-found h3 {
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  font-size: clamp(1.3rem, 3vw, 1.5rem);
+}
+
+.no-logs-found p {
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.05rem;
+}
+
+.back-to-home {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border-color);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .all-logs-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    min-width: auto;
+  }
+
+  .clear-filters-btn {
+    align-self: stretch;
+  }
+
+  .overview-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .workout-logs-group-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-sm {
+    width: 100%;
+  }
+
+  .logs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .all-logs-header {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .overview-stat-card {
+    padding: 1rem;
+  }
+
+  .all-logs-filters {
+    padding: 1rem;
+  }
+
+  .all-log-card {
+    padding: 1rem;
+  }
+
+  .no-logs-found {
+    padding: 2rem 1rem;
+  }
+
+  .no-logs-icon {
+    font-size: 3rem;
+  }
+}

@@ -5,29 +5,33 @@ import './Settings.css';
 
 export default function Settings({ userTheme: initialTheme = 'light' }) {
   const { workouts } = useWorkouts();
-  const [theme, setTheme] = useState(initialTheme);
+  const [theme, setTheme] = useState('light');
   const [notifications, setNotifications] = useState(true);
   const [weeklyGoal, setWeeklyGoal] = useState(150);
   const [savedMessage, setSavedMessage] = useState('');
   const [userName, setUserName] = useState('Fitness Enthusiast');
-  const [isEditing, setIsEditing] = useState(false);
 
   // Load settings from localStorage on mount
   useEffect(() => {
     const savedSettings = localStorage.getItem('fitnessTrackerSettings');
     if (savedSettings) {
       const settings = JSON.parse(savedSettings);
-      setTheme(settings.theme || initialTheme);
+      setTheme(settings.theme || 'light');
       setNotifications(settings.notifications ?? true);
       setWeeklyGoal(settings.weeklyGoal || 150);
       setUserName(settings.userName || 'Fitness Enthusiast');
     }
-  }, [initialTheme]);
+  }, []);
 
-  // Apply theme to document
+  // Apply theme to document whenever theme changes
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
 
   const handleSave = () => {
     const settings = {
@@ -40,7 +44,6 @@ export default function Settings({ userTheme: initialTheme = 'light' }) {
     localStorage.setItem('fitnessTrackerSettings', JSON.stringify(settings));
     
     setSavedMessage('✅ Settings saved successfully!');
-    setIsEditing(false);
     
     setTimeout(() => {
       setSavedMessage('');
@@ -53,6 +56,7 @@ export default function Settings({ userTheme: initialTheme = 'light' }) {
     setWeeklyGoal(150);
     setUserName('Fitness Enthusiast');
     
+    document.documentElement.setAttribute('data-theme', 'light');
     localStorage.removeItem('fitnessTrackerSettings');
     
     setSavedMessage('🔄 Settings reset to defaults!');
@@ -70,7 +74,7 @@ export default function Settings({ userTheme: initialTheme = 'light' }) {
 
       <div className="settings-container">
         <div className="settings-section">
-          <h2>Profile</h2>
+          <h2>👤 Profile</h2>
           <div className="setting-item">
             <label htmlFor="userName">Your Name</label>
             <input
@@ -85,27 +89,26 @@ export default function Settings({ userTheme: initialTheme = 'light' }) {
         </div>
 
         <div className="settings-section">
-          <h2>Appearance</h2>
+          <h2>🎨 Appearance</h2>
           <div className="setting-item">
             <label htmlFor="theme">Theme</label>
             <select
               id="theme"
               value={theme}
-              onChange={(e) => setTheme(e.target.value)}
+              onChange={(e) => handleThemeChange(e.target.value)}
               className="setting-select"
             >
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-              <option value="auto">Auto</option>
+              <option value="light">☀️ Light</option>
+              <option value="dark">🌙 Dark</option>
             </select>
           </div>
           <div className="theme-preview">
-            Current theme: <strong>{theme}</strong>
+            Current theme: <strong>{theme === 'light' ? '☀️ Light Mode' : '🌙 Dark Mode'}</strong>
           </div>
         </div>
 
         <div className="settings-section">
-          <h2>Notifications</h2>
+          <h2>🔔 Notifications</h2>
           <div className="setting-item">
             <label htmlFor="notifications">
               Enable Workout Reminders
@@ -119,14 +122,14 @@ export default function Settings({ userTheme: initialTheme = 'light' }) {
                 className="setting-checkbox"
               />
               <span className="checkbox-label">
-                {notifications ? 'Enabled' : 'Disabled'}
+                {notifications ? '✅ Enabled' : '❌ Disabled'}
               </span>
             </div>
           </div>
         </div>
 
         <div className="settings-section">
-          <h2>Goals</h2>
+          <h2>🎯 Goals</h2>
           <div className="setting-item">
             <label htmlFor="weeklyGoal">
               Weekly Workout Goal (minutes)
@@ -143,11 +146,13 @@ export default function Settings({ userTheme: initialTheme = 'light' }) {
             />
           </div>
           <div className="goal-info">
-            <p>Recommended: 150 minutes per week for adults</p>
+            <p>💡 Recommended: 150 minutes per week for adults</p>
             <p>Your goal: <strong>{weeklyGoal} minutes/week</strong></p>
           </div>
-        </div>        <div className="settings-section">
-          <h2>Account</h2>
+        </div>
+
+        <div className="settings-section">
+          <h2>📊 Account</h2>
           <div className="account-info">
             <p><strong>User:</strong> {userName}</p>
             <p><strong>Member Since:</strong> January 2025</p>
@@ -169,17 +174,17 @@ export default function Settings({ userTheme: initialTheme = 'light' }) {
             🔄 Reset to Defaults
           </button>
           <Link to="/" className="btn btn-secondary">
-            Cancel
+            ← Back to Home
           </Link>
         </div>
       </div>
 
       <div className="settings-summary">
-        <h3>Current Configuration</h3>
+        <h3>📋 Current Configuration</h3>
         <div className="summary-grid">
           <div className="summary-item">
             <span className="summary-label">Theme:</span>
-            <span className="summary-value">{theme}</span>
+            <span className="summary-value">{theme === 'light' ? '☀️ Light' : '🌙 Dark'}</span>
           </div>
           <div className="summary-item">
             <span className="summary-label">Notifications:</span>

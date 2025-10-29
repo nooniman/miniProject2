@@ -1,4 +1,4 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, NavLink } from 'react-router-dom';
 import '../styles/Layout.css';
 
 export default function Layout() {
@@ -8,9 +8,18 @@ export default function Layout() {
         <div className="header-content">
           <h1>💪 Fitness Tracker Hub</h1>
           <nav className="main-nav">
-            <Link to="/">Home</Link>
-            <Link to="/workouts">Workouts</Link>
-            <Link to="/settings">Settings</Link>
+            <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''}>
+              Home
+            </NavLink>
+            <NavLink to="/workouts" className={({ isActive }) => isActive ? 'active' : ''}>
+              Workouts
+            </NavLink>
+            <NavLink to="/all-logs" className={({ isActive }) => isActive ? 'active' : ''}>
+              All Logs
+            </NavLink>
+            <NavLink to="/settings" className={({ isActive }) => isActive ? 'active' : ''}>
+              Settings
+            </NavLink>
           </nav>
         </div>
       </header>
